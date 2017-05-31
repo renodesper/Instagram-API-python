@@ -777,3 +777,17 @@ class InstagramAPI:
             except KeyError as e:
                 break
         return liked_items
+
+    def getInsights(self, day=None):
+        if day is None:
+            day = datetime.now().strftime('%d')
+
+        url = 'insights/account_organic_insights/?'
+        query_string = {
+            'show_promotions_in_landing_page': 'true',
+            'first': day
+        }
+        url += urllib.parse.urlencode(query_string)
+
+        query = self.SendRequest(url)
+        return query
